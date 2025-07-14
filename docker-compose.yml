@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  docker-app:
+    image: alexssilva/rach:0.0.1
+    ports:
+      - "8080:8080"
+    depends_on:
+      - docker-postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://docker-postgres:5432/rach_app
+      - SPRING_DATASOURCE_USERNAME=rach
+      - SPRING_DATASOURCE_PASSWORD=rach123
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  docker-postgres:
+    image: postgres:14.0-alpine
+    environment:
+      - POSTGRES_DB=rach_app
+      - POSTGRES_USER=rach
+      - POSTGRES_PASSWORD=rach123
